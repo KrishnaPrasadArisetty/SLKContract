@@ -12,8 +12,8 @@ let PARTITIONKEY: typeof partitionKeys;
 if (serverMode === "dev") {
   appConfig = {
     uri: "https://emr-product-datahub-stage-sap.documents.azure.com:443/",
-    authKey:
-      "Zi4ZmMrE2AEFZIB6BMdIBaOfrSBuby2slMWWhYztAi7fbuTlaS4JGuyXkStan3sXtwPdfDBQuWwIACDbjC5NVg==",
+    authKey:"",
+      //"Zi4ZmMrE2AEFZIB6BMdIBaOfrSBuby2slMWWhYztAi7fbuTlaS4JGuyXkStan3sXtwPdfDBQuWwIACDbjC5NVg==",
     databaseId: "emrproducthubstg",
   };
 
