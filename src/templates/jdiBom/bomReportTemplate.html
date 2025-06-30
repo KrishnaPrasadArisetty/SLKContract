@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: #1e1e1e;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      h2 {
+        margin-bottom: 10px;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid #555;
+        margin: 20px 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #444;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background-color: #333;
+        color: #fff;
+      }
+      .status-failed {
+        color: #ff4d4f;
+      }
+      .status-success {
+        color: #52c41a;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>BOM Reports</h2>
+    <p><strong>Total BOM Items:</strong> {{total}}</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Request ID</th>
+          <th>Part</th>
+          <th>Status</th>
+          <th>Reason</th>
+          <th>Source Org</th>
+          <th>Target Org</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each reports}}
+        <tr>
+          <td>{{requestId}}</td>
+          <td>{{processedItem}}</td>
+          <td class="{{#if (eq status "FAILED")}}status-failed{{else}}status-success{{/if}}">
+            {{status}}
+          </td>
+          <td>{{message}}</td>
+          <td>{{sourceOrg}}</td>
+          <td>{{targetOrg}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </body>
+</html>

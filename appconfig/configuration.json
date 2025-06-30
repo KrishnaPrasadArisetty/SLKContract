@@ -1,0 +1,216 @@
+{
+    "ORACLE": {
+        "maxDescriptionLimit": 2000,
+        "CategoryAssignmentDataFields": [],
+        "partMaxDescriptionLimit": 240,
+        "NODE_TLS_REJECT_UNAUTHORIZED": 0,
+        "okta_secret" : "EMRPRoDucTDaTa",
+        "EMRDivisionARGExcludedTypes": {
+            "rosemountflow": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model",
+                "HATO Model"
+            ],
+            "roxar": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model"
+            ],
+            "daniel": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model"
+            ],
+            "rosemountmeasurement": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model"
+            ],
+            "subseaflowassurance": [],
+            "polyoil": [],
+            "flowsystems": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model"
+            ],
+            "micromotion": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model",
+                "HATO Model"
+            ],
+            "ultrasonic": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model"
+            ],
+            "metranflow": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model",
+                "HATO Model"
+            ],
+            "dpflow": [
+                "Product Non-ATO Model",
+                "Public Spare",
+                "Non-Public Spare",
+                "ATO Model",
+                "Consignment Item",
+                "ATO Service Model",
+                "PTO Model",
+                "SATO Model",
+                "HATO Model"
+            ]
+        },
+        "CONTEXTDFF_DEFAULT": {
+            "micromotion": "object"
+        },
+        "EMRDIVISION_ORG_DEFAULT": {
+            "micromotion": "object"
+        },
+        "PRODUCT_HIERARCHY": {
+            "micromotion": "object"
+        },
+        "SendItemStatusAsPhaseInForAdds": {
+            "micromotion": [],
+            "rosemountflow": [
+                "RTF",
+                "RTC"
+            ],
+            "roxar": [],
+            "daniel": [],
+            "rosemountmeasurement": [
+                "MVO",
+                "RTC"
+            ],
+            "SubseaFlowAssurance": [],
+            "polyoil": [],
+            "dpflow": [
+                "MVO",
+                "RTC",
+                "RSK",
+                "DSI",
+                "SG2",
+                "SGE",
+                "BM2",
+                "BME",
+                "EB2",
+                "EBE",
+                "DRM",
+                "CLJ"
+            ]
+        },
+        "SendItemStatusAsDesignForAdds": {},
+        "SendItemStatusAsDesignTypeExceptions": {
+            "daniel": [
+                "ATO Model",
+                "ATO Phantom Model",
+                "ATO MTO Model",
+                "PTO Model",
+                "ATO Option Class",
+                "Routing Step"
+            ],
+            "ultrasonic": [
+                "ATO Model",
+                "ATO Phantom Model",
+                "ATO MTO Model",
+                "PTO Model",
+                "ATO Option Class",
+                "Routing Step"
+            ],
+            "metranflow": [
+                "ATO Model",
+                "ATO Phantom Model",
+                "ATO MTO Model",
+                "PTO Model",
+                "ATO Option Class",
+                "Routing Step"
+            ],
+            "dpflow": [
+                "ATO Model",
+                "ATO Phantom Model",
+                "ATO MTO Model",
+                "PTO Model",
+                "ATO Option Class",
+                "Routing Step"
+            ]
+        },
+        "BOM": {
+            "SendComponentLocationAsReferenceDesignator": {
+                "ExcludedPartTypes": [
+                    "ATO MTO Model",
+                    "ATO Model",
+                    "ATO Non Sellable Model",
+                    "ATO Option Class",
+                    "ATO Phantom Model",
+                    "ATO Service Model",
+                    "PTO Model",
+                    "SATO Model",
+                    "Planning Item"
+                ],
+                "BusinessUnits": [
+                    "Daniel",
+                    "Roxar",
+                    "Ultrasonic"
+                ]
+            }
+        },
+        "bos": {
+            "ExcludedSpecificationTypes": [
+                "ETO Face to Face",
+                "CAD Model"
+            ]
+        },
+        "wipSupplyTypeMapping": {
+            "Push": "1",
+            "Assembly Pull": "2",
+            "Operation Push": "3",
+            "Bulk": "4",
+            "Vendor": "5",
+            "Phantom": "6",
+            "Based on Bill": "7",
+            "Unassigned": ""
+        }
+    }
+}
