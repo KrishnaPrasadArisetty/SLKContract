@@ -1,0 +1,64 @@
+# Python Django
+# Test a Django project on multiple versions of Python.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+pool:
+  vmImage: ubuntu-latest
+  timeoutInMinutes: 360
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - dev
+
+steps:
+- task: Npm@1
+  inputs:
+    command: 'install'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo Downloading Fortify source
+      sudo mkdir /mnt/devopsfilestoreblob
+      if [ ! -d "/etc/smbcredentials" ]; then
+      sudo mkdir /etc/smbcredentials
+      fi
+      if [ ! -f "/etc/smbcredentials/devopsfilestoreblob.cred" ]; then
+          sudo bash -c 'echo "username=devopsfilestoreblob" >> /etc/smbcredentials/devopsfilestoreblob.cred'
+          sudo bash -c 'echo "password=$(BLOB_PWD)" >> /etc/smbcredentials/devopsfilestoreblob.cred'
+      fi
+      sudo chmod 600 /etc/smbcredentials/devopsfilestoreblob.cred
+      sudo bash -c 'echo "//devopsfilestoreblob.file.core.windows.net/fortify /mnt/devopsfilestoreblob cifs nofail,vers=3.0,credentials=/etc/smbcredentials/devopsfilestoreblob.cred,dir_mode=0777,file_mode=0777,serverino" >> /etc/fstab'
+      sudo mount -t cifs //devopsfilestoreblob.file.core.windows.net/fortify /mnt/devopsfilestoreblob -o vers=3.0,credentials=/etc/smbcredentials/devopsfilestoreblob.cred,dir_mode=0777,file_mode=0777,serverino
+      "/mnt/devopsfilestoreblob/Fortify_Linux.sh"
+      echo Updating Security Content
+      "/home/vsts/HPE_Fortify/HPE_Fortify_SCA_and_Apps/bin/fortifyupdate"
+      echo Starting Fortify Scan
+      echo Phase 1: Clean
+      "/home/vsts/HPE_Fortify/HPE_Fortify_SCA_and_Apps/bin/sourceanalyzer" -b $(Build.BuildId) -clean
+      echo Phase 2: Translate
+      "/home/vsts/HPE_Fortify/HPE_Fortify_SCA_and_Apps/bin/sourceanalyzer" -b $(Build.BuildId) "/home/vsts/work/1/s/**/*" -exclude "**/node_modules/**/*"
+      echo Phase 3: Scan
+      "/home/vsts/HPE_Fortify/HPE_Fortify_SCA_and_Apps/bin/sourceanalyzer" -b $(Build.BuildId) -scan -f "/home/vsts/work/1/s/$(Build.BuildId).fpr"
+      echo Phase 4: Generating report
+      "/home/vsts/HPE_Fortify/HPE_Fortify_SCA_and_Apps/bin/BIRTReportGenerator" -template "Developer Workbook" -source "/home/vsts/work/1/s/$(Build.BuildId).fpr" -format PDF -output "/home/vsts/work/1/s/FortifyReport.pdf"
+      echo Phase 5: Uploading Results
+
+      "/home/vsts/HPE_Fortify/HPE_Fortify_SCA_and_Apps/jre/bin/keytool" -import -alias SSC -keystore "/home/vsts/HPE_Fortify/HPE_Fortify_SCA_and_Apps/jre/lib/security/cacerts" -file "/home/vsts/work/1/s/sscemersoncom.crt" -trustcacerts -keypass changeit -storepass changeit -noprompt
+
+            "/home/vsts/HPE_Fortify/HPE_Fortify_SCA_and_Apps/bin/fortifyclient" uploadFPR -url https://ssc.emerson.com/ssc -authtoken $(fortifytoken) -f "/home/vsts/work/1/s/$(Build.BuildId).fpr" -application "$(SSC_app_name)" -applicationVersion "$(SSC_app_name_version)"
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      FortifyReport.pdf
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
